@@ -1132,24 +1132,30 @@ generatedPDF = pdf;
 
 goToStep(7);
 
-document.getElementById(
-"downloadBtn")
-.onclick = function(){
+document.getElementById("downloadBtn").onclick = function () {
 
 const name =
-document.getElementById(
-"pdfName"
-).value || "document";
+document.getElementById("pdfName").value || "document";
 
-generatedPDF.save(
-name + ".pdf"
-);
+const blob = generatedPDF.output("blob");
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+
+a.href = url;
+a.download = name + ".pdf";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+URL.revokeObjectURL(url);
 
 };
 
 }
-
-/* RESTART */
 
 function restartWebsite(){
 
