@@ -1188,18 +1188,43 @@ generatedPDF = pdf;
 
 goToStep(7);
 
-document.getElementById("downloadBtn").onclick = function () {
+document.getElementById("downloadBtn").onclick = async function () {
 
 const name =
 document.getElementById("pdfName").value || "document";
 
-const blob = generatedPDF.output("blob");
-const url = URL.createObjectURL(blob);
+const blob =
+generatedPDF.output("blob");
 
-const a = document.createElement("a");
+const url =
+URL.createObjectURL(blob);
+
+/* MOBILE DETECTION */
+
+const isMobile =
+/Android|iPhone|iPad|iPod/i.test(
+navigator.userAgent
+);
+
+/* MOBILE */
+
+if(isMobile){
+
+window.open(url,"_blank");
+
+}
+
+/* DESKTOP */
+
+else{
+
+const a =
+document.createElement("a");
 
 a.href = url;
-a.download = name + ".pdf";
+
+a.download =
+name + ".pdf";
 
 document.body.appendChild(a);
 
@@ -1207,11 +1232,17 @@ a.click();
 
 document.body.removeChild(a);
 
+}
+
+/* CLEANUP */
+
+setTimeout(()=>{
+
 URL.revokeObjectURL(url);
 
-};
+},5000);
 
-}
+};
 
 function restartWebsite(){
 
