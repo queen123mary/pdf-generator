@@ -1214,42 +1214,29 @@ generatedPDF.output("blob");
 const url =
 URL.createObjectURL(blob);
 
-/* MOBILE DETECTION */
-
 const isMobile =
 /Android|iPhone|iPad|iPod/i.test(
 navigator.userAgent
 );
-
-/* MOBILE */
 
 if(isMobile){
 
 window.open(url,"_blank");
 
 }
-
-/* DESKTOP */
-
 else{
 
 const a =
 document.createElement("a");
 
 a.href = url;
-
-a.download =
-name + ".pdf";
+a.download = name + ".pdf";
 
 document.body.appendChild(a);
-
 a.click();
-
 document.body.removeChild(a);
 
 }
-
-/* CLEANUP */
 
 setTimeout(()=>{
 
@@ -1259,32 +1246,26 @@ URL.revokeObjectURL(url);
 
 };
 
+} // closes startGeneration()
+
 function restartWebsite(){
 
 images = [];
 
 previewGrid.innerHTML = "";
 
-document.getElementById(
-"scanPreview")
-.innerHTML = "";
+document.getElementById("scanPreview").innerHTML = "";
 
-document.getElementById(
-"pdfName")
-.value = "";
+document.getElementById("pdfName").value = "";
 
-document.getElementById(
-"progressBar")
-.style.width = "0%";
+document.getElementById("progressBar").style.width = "0%";
 
-document.getElementById(
-"progressBar")
-.innerHTML = "0%";
+document.getElementById("progressBar").innerHTML = "0%";
 
 goToStep(1);
 
 }
-}
+
 
 </script>
 <footer style="text-align:center;padding:20px;">
