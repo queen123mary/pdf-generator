@@ -317,39 +317,45 @@ footer{
 
 @media(max-width:768px){
 
-    .crop-box{
-        width:95%;
-        max-height:95vh;
-        padding:10px;
-        overflow:hidden;
+    .crop-box {
+        width: 95%;
+        max-height: 85vh; /* Leaves safe room for the action buttons at the bottom */
+        padding: 15px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
-    #cropImage{
-        max-width:100%;
-        max-height:40vh;
-        display:block;
-        margin:auto;
+    #cropImage {
+        max-width: 100%;
+        max-height: 45vh; /* Prevents the raw image from stretching too tall */
+        display: block;
+        margin: auto;
     }
 
-    .cropper-container{
-        max-height:40vh !important;
+    /* FIX: Forces CropperJS wrapper UI elements to stay bounded */
+    .cropper-container {
+        max-height: 45vh !important;
+        width: 100% !important;
     }
 
-    .crop-buttons{
-        display:flex;
-        flex-direction:row;
-        justify-content:center;
-        flex-wrap:wrap;
-        gap:8px;
-        padding:10px;
+    .crop-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 0 0 0;
+        margin-top: auto; /* Pushes the buttons cleanly to the absolute bottom of the container */
     }
 
-    .crop-buttons button{
-        width:auto;
-        min-width:100px;
-        margin:0;
+    .crop-buttons button {
+        width: auto;
+        min-width: 90px;
+        margin: 0;
+        padding: 10px 14px;
+        font-size: 14px;
     }
-
 }
 
 </style>
@@ -846,13 +852,16 @@ const image =
 document.getElementById(
 "cropImage");
 
-image.src = images[index];
-
 if(cropper){
 
 cropper.destroy();
 
 }
+
+image.src = images[index];
+
+// Paste the updated logic right here:
+image.onload = function() {
 
 cropper =
 new Cropper(image,{
@@ -865,6 +874,8 @@ zoomable:true,
 scalable:true
 
 });
+
+};
 
 }
 
