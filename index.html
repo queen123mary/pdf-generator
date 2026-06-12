@@ -283,14 +283,17 @@ footer{
 /* MOBILE CROPPER FIX */
 
 .crop-box{
-    width:95%;
-    max-height:95vh;
-    overflow:auto;
+    width:90%;
+    max-width:800px;
+    max-height:85vh;
+    overflow:hidden;
 }
 
 #cropImage{
-    max-width:100%;
-    max-height:55vh;
+    max-width:90%;
+    max-height:45vh;
+    width:auto;
+    height:auto;
     display:block;
     margin:auto;
 }
@@ -312,12 +315,28 @@ footer{
     z-index:9999;
 }
 
-/* MOBILE */
+@media(max-width:768px){
 
-@media(max-width:1000px){
+    .crop-box{
+        width:95%;
+        max-width:100%;
+        max-height:90vh;
+        padding:10px;
+        overflow:auto;
+    }
 
-    .ad-space{
-        display:none;
+    #cropImage{
+        max-width:100%;
+        max-height:50vh;
+    }
+
+    .crop-buttons{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .crop-buttons button{
+        width:100%;
     }
 
 }
@@ -686,11 +705,24 @@ goToStep(currentStep + 1);
 
 function previousStep(){
 
-if(currentStep > 1){
+    if(currentStep === 7){
 
-goToStep(currentStep - 1);
+        images = [];
+        previewGrid.innerHTML = "";
+        document.getElementById("scanPreview").innerHTML = "";
+        document.getElementById("pdfName").value = "";
+        document.getElementById("progressBar").style.width = "0%";
+        document.getElementById("progressBar").innerHTML = "0%";
 
-}
+        goToStep(1);
+        return;
+    }
+
+    if(currentStep > 1){
+
+        goToStep(currentStep - 1);
+
+    }
 
 }
 
